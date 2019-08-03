@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public enum GameState
 {
@@ -19,7 +18,10 @@ public class GameManager : MonoBehaviour
     public BoardManager Board;
 
     [Header("Camera Holder")]
-    public CameraControler CameraHolder;
+    public CameraController CameraHolder;
+
+    [Header("UI Canvas")]
+    public UIController UICanvas;
 
     [Header("Player prefabs and data")]
     public Stone Player1StonePrefab;
@@ -81,6 +83,10 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("BoardInitializing");
         Board.InitializeBoard();
+
+        UICanvas.UpdateUIPlayerNames();
+        UICanvas.UpdateUIMessage(UICanvas.Language.PlayerSetupMessage);
+        UICanvas.UpdateUIAwake(true);
     }
 
     public void AlternatePlayerTurn()
@@ -90,6 +96,7 @@ public class GameManager : MonoBehaviour
             _currentPlayer = PlayerTurn.Player2;
             _playerStone = Player2StonePrefab;
             CameraHolder.CameraViewAlternate();
+            UICanvas.UpdateUIAlternateScreens();
             Debug.Log("Player2 Turn");
         }
         else if (_currentPlayer == PlayerTurn.Player2)
@@ -97,8 +104,14 @@ public class GameManager : MonoBehaviour
             _currentPlayer = PlayerTurn.Player1;
             _playerStone = Player1StonePrefab;
             CameraHolder.CameraViewAlternate();
+            UICanvas.UpdateUIAlternateScreens();
             Debug.Log("Player1 Turn");
         }
+
+        if (_currentGameState == GameState.PlayerSetup)
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerSetupMessage);
+        if (_currentGameState == GameState.Move)
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerMoveMessage);
     }
 
     public Stone GetActivePlayerStone()
@@ -165,20 +178,30 @@ public class GameManager : MonoBehaviour
     {
         if (value == 1)
         {
-            _player1RemainingPieces--;
+            _player1RemainingPieces--;            
         } else if (value == -1)
         {
             _player2RemainingPieces--;
         }
-        
-        if(_player1RemainingPieces == 2)
+
+        UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
+
+        if (_player1RemainingPieces == 2)
         {
             Debug.Log("Player 2 Wins!");
+            UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerWin);
             _currentGameState = GameState.GameOver;
             GameOver();
         } else if (_player2RemainingPieces == 2)
         {
             Debug.Log("Player 1 Wins!");
+            UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
+            _currentGameState = GameState.GameOver;
+            GameOver();
+        } else if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
+        {
+            Debug.Log("It's a draw!");
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
             _currentGameState = GameState.GameOver;
             GameOver();
         }
@@ -210,9 +233,15 @@ public class GameManager : MonoBehaviour
         if (_currentGameState != GameState.PlayerSetup)
         {
             if (!player1 && player2)
+            {
+                UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerNoMovesWin01 + UICanvas.Language.Player2 + UICanvas.Language.PlayerNoMovesWin02);
                 Debug.Log("Player 1 cannot make any more moves, Player 2 wins!");
+            }
             if (!player2 && player1)
+            {
+                UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerNoMovesWin01 + UICanvas.Language.Player1 + UICanvas.Language.PlayerNoMovesWin02);
                 Debug.Log("Player 2 cannot make any more moves, Player 1 wins!");
+            }   
             if (!player1 && !player2)
                 Debug.Log("Players cannot make any more moves, it's a draw!");
 
@@ -240,8 +269,10 @@ public class GameManager : MonoBehaviour
         if (state){
             _previousGameState = _currentGameState;
             _currentGameState = GameState.Mill;
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerMillMessage01);
         } else {
             _currentGameState = _previousGameState;
+            
             AlternatePlayerTurn();
         }
     }

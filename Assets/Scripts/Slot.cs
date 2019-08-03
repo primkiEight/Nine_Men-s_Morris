@@ -30,6 +30,9 @@ public class Slot : MonoBehaviour {
     private Color _initialColor;
     [Header("Visuals")]
     public Color HighlightColor;
+    public Color Free;
+    public Color Occupied;
+    public Color Mill;
 
     [Header("Positions")]
     public Transform StonePosition;
@@ -328,6 +331,7 @@ public class Slot : MonoBehaviour {
         _gameManager.DecreasePlayerPieces(value);
         if (_gameManager.GetGameState() == GameState.Mill)
             _gameManager.SetMillState(false);
+        _clickBool = false;
     }
 
     public void StoneInstantiate(Stone stoneToPlace, Transform positionToInstantiate)
