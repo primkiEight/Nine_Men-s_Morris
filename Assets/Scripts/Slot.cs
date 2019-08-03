@@ -48,13 +48,16 @@ public class Slot : MonoBehaviour {
             _myBoard = _myTransform.GetComponentInParent<BoardManager>();
         } else
         {
-            Debug.Log("I'm missing my MotherBoard");
+            Debug.Log("I'm missing my MotherBoard.");
         }        
 
         if (transform.GetComponent <MeshRenderer>() != null)
         {
             _myMaterial = transform.GetComponent<MeshRenderer>().material;
             _initialColor = _myMaterial.color;
+        } else
+        {
+            Debug.Log("Mesh me a Renderer with a material.");
         }
     }
 
@@ -82,10 +85,6 @@ public class Slot : MonoBehaviour {
 
     public void SetMyNeighbours(BoardManager board)
     {
-        //_myNeighboursList = new List<Slot>();
-        //_millHorizontalList = new List<Vector2Int>();
-        //_millVerticalList = new List<Vector2Int>();
-        //
         _myNeighboursList.Clear();
         _millHorizontalList.Clear();
         _millVerticalList.Clear();
@@ -213,82 +212,23 @@ public class Slot : MonoBehaviour {
             case GameState.PlayerSetup:
                 if (_clickBool && _myStone == null)
                 {
-                    Debug.Log("Setting a stone.");
-                    SetTheStone(StonePosition);
-                    //Debug.Log("Alternate Player Turn");
-                    //_gameManager.AlternatePlayerTurn();
-                    //Debug.Log("Player Setup CountDown");
-                    //_gameManager.PlayerSetupCountdown(true);
-                    Debug.Log("Check For Mill");
-                    int mill = CheckForMill();
-                    if (mill == 3 || mill == -3)
-                    {
-                        Debug.Log("Player Setup CountDown");
-                        _gameManager.PlayerSetupCountdown(true);
-                        Debug.Log("Player made a mill.");
-                        _gameManager.ReportPlayerMove(mill);
-                    }
-                    else
-                    {
-                        Debug.Log("Player made a move without a mill.");
-                        Debug.Log("Alternate Player Turn");
-                        _gameManager.AlternatePlayerTurn();
-
-                        Debug.Log("A1");
-                    }
-                    Debug.Log("Player Setup CountDown");
-                    _gameManager.PlayerSetupCountdown(true);
-                    Debug.Log("Can Player Move On The Board?");
-                    _myBoard.CanPlayerMoveOnTheBoard();                    
-                }
-                else
-                {
-                    //if (_gameManager.GetActivePlayerStone() == this)
-                    //{
-                    //    //Po pravilima ovo bi se trebalo onemogućiti
-                    //    Debug.Log("Removing a stone.");
-                    //    RemoveTheStone();
-                    //    //Debug.Log("Alternate Player Turn");
-                    //    //_gameManager.AlternatePlayerTurn();
-                    //    Debug.Log("Player Setup CountDown");
-                    //    _gameManager.PlayerSetupCountdown(false);
-                    //}
-                }
+                    Place();
+                }                
                 break;
             case GameState.Move:
                 if (CheckForMove())
                 {
-                    Debug.Log("Destroy the selected Stone on the old position");
-                    _gameManager.GetSelectedStoneSlot().RemoveTheStone();
-
-                    Debug.Log("Set and instantiate the stone on the old position...");
-                    SetTheStone(_gameManager.GetSelectedStoneSlot().StonePosition);
-
-                    Debug.Log("Move and animate the stone moving");
-                    _myStone.MoveTheStone(StonePosition);
-
-                    Debug.Log("Set the GameManager selected Stone and Stone Slot to null");
-                    _gameManager.SetSelectedStone(null);
-
-                    Debug.Log("Check For Mill");
-                    int mill = CheckForMill();
-                    if(mill == 3 || mill == -3)
-                    {
-                        Debug.Log("Player made a mill.");
-                        _gameManager.ReportPlayerMove(mill);
-                    } else
-                    {
-                        Debug.Log("Player made a move without a mill.");
-                        Debug.Log("Alternate Player Turn");
-                        _gameManager.AlternatePlayerTurn();
-                    }
-
-                    Debug.Log("Can Player Move On The Board?");
-                    _myBoard.CanPlayerMoveOnTheBoard();
+                    Move();
                 }
-
                 break;
             case GameState.Flying:
+                if(CheckForFly() && _gameManager.CanPlayerFly())
+                {
+                    Fly();
+                } else if (CheckForMove())
+                {
+                    Move();
+                }
                 break;
             case GameState.GameOver:
                 break;
@@ -297,6 +237,97 @@ public class Slot : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    private void Place()
+    {
+        Debug.Log("Setting a stone.");
+        SetTheStone(StonePosition);
+        Debug.Log("Check For Mill");
+        int mill = CheckForMill();
+        if (mill == 3 || mill == -3)
+        {
+            Debug.Log("Player Setup CountDown");
+            _gameManager.PlayerSetupCountdown(true);
+            Debug.Log("Player made a mill.");
+            _gameManager.ReportPlayerMove(mill);
+        }
+        else
+        {
+            Debug.Log("Player made a move without a mill.");
+            Debug.Log("Alternate Player Turn");
+            _gameManager.AlternatePlayerTurn();
+
+            Debug.Log("A1");
+        }
+        Debug.Log("Player Setup CountDown");
+        _gameManager.PlayerSetupCountdown(true);
+        Debug.Log("Can Player Move On The Board?");
+        _myBoard.CanPlayerMoveOnTheBoard();
+    }
+
+    private void Move()
+    {
+        Debug.Log("Destroy the selected Stone on the old position");
+        _gameManager.GetSelectedStoneSlot().RemoveTheStone();
+
+        Debug.Log("Set and instantiate the stone on the old position...");
+        SetTheStone(_gameManager.GetSelectedStoneSlot().StonePosition);
+
+        Debug.Log("Move and animate the stone moving");
+        _myStone.MoveTheStone(StonePosition);
+
+        Debug.Log("Set the GameManager selected Stone and Stone Slot to null");
+        _gameManager.SetSelectedStone(null);
+
+        Debug.Log("Check For Mill");
+        int mill = CheckForMill();
+        if (mill == 3 || mill == -3)
+        {
+            Debug.Log("Player made a mill.");
+            _gameManager.ReportPlayerMove(mill);
+        }
+        else
+        {
+            Debug.Log("Player made a move without a mill.");
+            Debug.Log("Alternate Player Turn");
+            _gameManager.AlternatePlayerTurn();
+        }
+
+        Debug.Log("Can Player Move On The Board?");
+        _myBoard.CanPlayerMoveOnTheBoard();
+    }
+
+    private void Fly()
+    {
+        Debug.Log("Destroy the selected Stone on the old position");
+        _gameManager.GetSelectedStoneSlot().RemoveTheStone();
+
+        Debug.Log("Set and instantiate the stone on the old position...");
+        SetTheStone(_gameManager.GetSelectedStoneSlot().StonePosition);
+
+        Debug.Log("Fly and animate the stone moving");
+        _myStone.FlyTheStone(StonePosition);
+
+        Debug.Log("Set the GameManager selected Stone and Stone Slot to null");
+        _gameManager.SetSelectedStone(null);
+
+        Debug.Log("Check For Mill");
+        int mill = CheckForMill();
+        if (mill == 3 || mill == -3)
+        {
+            Debug.Log("Player made a mill.");
+            _gameManager.ReportPlayerMove(mill);
+        }
+        else
+        {
+            Debug.Log("Player made a move without a mill.");
+            Debug.Log("Alternate Player Turn");
+            _gameManager.AlternatePlayerTurn();
+        }
+
+        //Debug.Log("Can Player Move On The Board?");
+        //_myBoard.CanPlayerMoveOnTheBoard();
     }
 
     private void SetTheStone(Transform positionToInstantiate)
@@ -318,10 +349,6 @@ public class Slot : MonoBehaviour {
         //_gameManager.Board.SetBoardState(_myMatrixPosition, this);        
         _myBoard.SetBoardState(_myMatrixPosition, this);
 
-        //if (_gameManager.GetGameState() == GameState.Mill)
-        //{
-        //    _gameManager.SetMillState(false);
-        //}
     }
 
     public void RemoveTheStoneWithMill()
@@ -430,5 +457,18 @@ public class Slot : MonoBehaviour {
         }
 
         return canStoneMoveHere;
+    }
+
+    public bool CheckForFly()
+    {
+        if(_myStone)
+        {
+            Debug.Log("Can not fly here.");
+            return false;
+        } else
+        {
+            Debug.Log("Can fly here.");
+            return true;
+        }
     }
 }

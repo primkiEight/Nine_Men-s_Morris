@@ -20,7 +20,10 @@ public class Messages : ScriptableObject {
 
     [Header("Player Move Messages")]
     public string PlayerMoveMessage;
-    
+
+    [Header("Player Fly Messages")]
+    public string PlayerFlyMessage;
+
     [Header("Mill Messages")]
     public string PlayerMillMessage01;
     public string PlayerMillMessage02;

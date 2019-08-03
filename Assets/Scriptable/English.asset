@@ -19,5 +19,6 @@ MonoBehaviour:
   PlayerDraw: It's a draw!
   PlayerSetupMessage: Place one of your stones on the free space.
   PlayerMoveMessage: Move one of your stones to a free space. Connect 3 for a mill.
+  PlayerFlyMessage: Player with 3 stones can 'fly' them to any free space.
   PlayerMillMessage01: You connected a mill. Remove one of opponents stones.
   PlayerMillMessage02: You cannot remove a stone from the mill.

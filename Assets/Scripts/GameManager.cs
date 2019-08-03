@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     [Header("Player prefabs and data")]
     public Stone Player1StonePrefab;
     public Stone Player2StonePrefab;
-    private Stone _playerStone;
+    private Stone _playerStone = null;
+    private Stone _flyingPlayer;
     public int PlayerStonePieces = 9;
     private int _totalPlayerPieces;
     private int _player1RemainingPieces;
@@ -91,6 +92,13 @@ public class GameManager : MonoBehaviour
 
     public void AlternatePlayerTurn()
     {
+        if (_currentGameState == GameState.PlayerSetup)
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerSetupMessage);
+        if (_currentGameState == GameState.Move)
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerMoveMessage);
+        if (_currentGameState == GameState.Flying)
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerFlyMessage);
+
         if (_currentPlayer == PlayerTurn.Player1)
         {
             _currentPlayer = PlayerTurn.Player2;
@@ -107,16 +115,28 @@ public class GameManager : MonoBehaviour
             UICanvas.UpdateUIAlternateScreens();
             Debug.Log("Player1 Turn");
         }
-
-        if (_currentGameState == GameState.PlayerSetup)
-            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerSetupMessage);
-        if (_currentGameState == GameState.Move)
-            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerMoveMessage);
     }
 
     public Stone GetActivePlayerStone()
     {
         return _playerStone;
+    }
+
+    public void SetFlyingPlayerStone(Stone flyingPlayer)
+    {
+        _flyingPlayer = flyingPlayer;
+    }
+
+    public Stone GetFlyingPlayerStone()
+    {
+        return _flyingPlayer;
+    }
+
+    public bool CanPlayerFly()
+    {
+        if(GetActivePlayerStone() == _flyingPlayer)
+            return true;
+        return false;
     }
 
     public Stone GetSelectedStone()
@@ -153,21 +173,18 @@ public class GameManager : MonoBehaviour
         {
             if (countdown)
             {
+                //Not an option now.
                 _totalPlayerPieces--;
                 Debug.Log("Player Pieces -1");
-                //postoji zbog Undo opcije, odnosno jer trenutno omogućujem da igrač povuće potez
             }
             else
             {
                 _totalPlayerPieces++;
-                Debug.Log("Player Pieces +1");
-                //Alternate se poziva (trenutno) is Slot klase
-                //AlternatePlayerTurn();
+                Debug.Log("Player Pieces +1");                
             }
 
             if (_totalPlayerPieces == 0)
             {
-                //_currentPlayer = PlayerTurn.Player1;
                 ChangeGameState();
                 Debug.Log("GameState is now Move");
             }   
@@ -198,7 +215,32 @@ public class GameManager : MonoBehaviour
             UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
             _currentGameState = GameState.GameOver;
             GameOver();
-        } else if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
+        } else if (_player1RemainingPieces == 3 || _player2RemainingPieces == 3)
+        {
+            if (_flyingPlayer == null)
+            {
+                if (_player1RemainingPieces == 3)
+                {
+                    Debug.Log("Player1 can now fly!");
+                    SetFlyingPlayerStone(Player1StonePrefab);
+                }
+                else if (_player2RemainingPieces == 3)
+                {
+                    Debug.Log("Player2 can now fly!");
+                    SetFlyingPlayerStone(Player2StonePrefab);
+                }
+
+                
+
+                //ChangeGameState();
+                _currentGameState = GameState.Flying;
+                AlternatePlayerTurn();
+                
+                
+            }
+        }
+
+        if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
         {
             Debug.Log("It's a draw!");
             UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
@@ -211,10 +253,10 @@ public class GameManager : MonoBehaviour
     {
         _currentGameState++;
 
-        //if(_currentGameState == GameState.Move)
-        //    _currentPlayer = PlayerTurn.Player1;
-
-        //AlternatePlayerTurn();
+        if (_currentGameState == GameState.Move)
+        {
+            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerMoveMessage);
+        }
 
         if (_currentGameState == GameState.GameOver)
         {

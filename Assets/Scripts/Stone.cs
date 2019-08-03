@@ -33,30 +33,6 @@ public class Stone : MonoBehaviour {
         switch (_gameManager.GetGameState())
         {
             case GameState.PlayerSetup:
-                if (_clickBool)
-                {
-                    //Debug.Log("Setting a stone.");
-                    //SetTheStone();
-                    //Debug.Log("Alternate Player Turn");
-                    //_gameManager.AlternatePlayerTurn();
-                    //Debug.Log("Player Setup CountDown");
-                    //_gameManager.PlayerSetupCountdown(true);
-                    //Debug.Log("Check For Mill");
-                    //_gameManager.ReportPlayerMove(CheckForMill());
-                    //Debug.Log("Can Player Move On The Board?");
-                    //_myBoard.CanPlayerMoveOnTheBoard();
-                    //Debug.Log("A stone value mi je " + _myStoneValue);
-                }
-                else
-                {
-                    //Po pravilima ovo bi se trebalo onemogućiti
-                    //Debug.Log("Removing a stone.");
-                    //RemoveTheStone();
-                    //Debug.Log("Alternate Player Turn");
-                    //_gameManager.AlternatePlayerTurn();
-                    //Debug.Log("Player Setup CountDown");
-                    //_gameManager.PlayerSetupCountdown(false);
-                }
                 break;
             case GameState.Move:
                 if (_gameManager.GetSelectedStone() != this)
@@ -65,6 +41,10 @@ public class Stone : MonoBehaviour {
                 }   
                 break;
             case GameState.Flying:
+                if (_gameManager.GetSelectedStone() != this)
+                {
+                    _gameManager.SetSelectedStone(this);
+                }
                 break;
             case GameState.GameOver:
                 break;
@@ -91,6 +71,15 @@ public class Stone : MonoBehaviour {
         MoveSpeed *= Vector3.Distance(_myTransform.position, _pointBmove) / MoveSpeed;
 
         _isMoving = true;
+    }
+
+    public void FlyTheStone(Transform pointBdestination)
+    {
+        _pointBmove = pointBdestination.position;
+
+        //Animirati, s odgodom (Coo)
+
+        _myTransform.position = _pointBmove;
     }
 
     private void Update()

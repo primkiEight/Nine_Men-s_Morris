@@ -203,6 +203,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 5956319}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &36174331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36174332}
+  m_Layer: 5
+  m_Name: ButtonHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &36174332
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36174331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1387515967}
+  - {fileID: 1100560850}
+  m_Father: {fileID: 1811977798}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 0}
 --- !u!1 &36330413
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,10 +359,10 @@ MonoBehaviour:
   - {fileID: 36330418}
   - {fileID: 742690687}
   - {fileID: 1799327285}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 359860542}
   _myStoneValue: 0
 --- !u!1 &43758598
@@ -1221,10 +1256,10 @@ MonoBehaviour:
   - {fileID: 306580148}
   - {fileID: 1622883991}
   - {fileID: 306840414}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1618000878}
   _myStoneValue: 0
 --- !u!1 &306840409
@@ -1349,10 +1384,10 @@ MonoBehaviour:
   - {fileID: 306840414}
   - {fileID: 1622883991}
   - {fileID: 306580148}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 852174931}
   _myStoneValue: 0
 --- !u!1 &335480377
@@ -1852,10 +1887,10 @@ MonoBehaviour:
   - {fileID: 472132104}
   - {fileID: 2054692473}
   - {fileID: 742690687}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1589033544}
   _myStoneValue: 0
 --- !u!1 &521450955
@@ -2176,10 +2211,10 @@ MonoBehaviour:
   - {fileID: 545487624}
   - {fileID: 1622883991}
   - {fileID: 735040751}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1967032779}
   _myStoneValue: 0
 --- !u!1 &563475899
@@ -3007,10 +3042,10 @@ MonoBehaviour:
   - {fileID: 733120120}
   - {fileID: 1323021546}
   - {fileID: 849462979}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 595976743}
   _myStoneValue: 0
 --- !u!1 &735040746
@@ -3134,10 +3169,10 @@ MonoBehaviour:
   - {fileID: 735040751}
   - {fileID: 1157906594}
   - {fileID: 1949914377}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1229691765}
   _myStoneValue: 0
 --- !u!1 &742690682
@@ -3262,10 +3297,10 @@ MonoBehaviour:
   - {fileID: 742690687}
   - {fileID: 2054692473}
   - {fileID: 472132104}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 242610026}
   _myStoneValue: 0
 --- !u!1 &760274999
@@ -3358,6 +3393,81 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 760274999}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &780130148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780130149}
+  - component: {fileID: 780130151}
+  - component: {fileID: 780130150}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &780130149
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 780130148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1100560850}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &780130150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 780130148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 4c6ee8a2eae59794f90cfdd60caa3228, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Quit
+--- !u!222 &780130151
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 780130148}
+  m_CullTransparentMesh: 0
 --- !u!1 &811251784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3515,10 +3625,10 @@ MonoBehaviour:
   - {fileID: 849462979}
   - {fileID: 1323021546}
   - {fileID: 733120120}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 258511203}
   _myStoneValue: 0
 --- !u!1 &852174930
@@ -3672,10 +3782,10 @@ MonoBehaviour:
   - {fileID: 894733580}
   - {fileID: 306840414}
   - {fileID: 1840404926}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1255438966}
   _myStoneValue: 0
 --- !u!1 &900549547
@@ -3939,10 +4049,10 @@ MonoBehaviour:
   - {fileID: 952717754}
   - {fileID: 1157906594}
   - {fileID: 1069808739}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 73528242}
   _myStoneValue: 0
 --- !u!1 &958101512
@@ -4239,10 +4349,10 @@ MonoBehaviour:
   - {fileID: 1069808739}
   - {fileID: 1157906594}
   - {fileID: 952717754}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1815503368}
   _myStoneValue: 0
 --- !u!1 &1077626257
@@ -4456,10 +4566,10 @@ MonoBehaviour:
   - {fileID: 1080659758}
   - {fileID: 2054692473}
   - {fileID: 545487624}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 2064234537}
   _myStoneValue: 0
 --- !u!1 &1099232803
@@ -4552,6 +4662,129 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1099232803}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1100560849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1100560850}
+  - component: {fileID: 1100560853}
+  - component: {fileID: 1100560852}
+  - component: {fileID: 1100560851}
+  m_Layer: 5
+  m_Name: ButtonQuit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1100560850
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100560849}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 780130149}
+  m_Father: {fileID: 36174332}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -20, y: 20}
+  m_SizeDelta: {x: 180, y: 50}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &1100560851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100560849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1100560852}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1811977799}
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1100560852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100560849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1100560853
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100560849}
+  m_CullTransparentMesh: 0
 --- !u!1 &1125054249
 GameObject:
   m_ObjectHideFlags: 0
@@ -4766,10 +4999,10 @@ MonoBehaviour:
   - {fileID: 1157906594}
   - {fileID: 952717754}
   - {fileID: 1069808739}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 2050670776}
   _myStoneValue: 0
 --- !u!1 &1200950522
@@ -5554,10 +5787,10 @@ MonoBehaviour:
   - {fileID: 1323021546}
   - {fileID: 733120120}
   - {fileID: 849462979}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1961529267}
   _myStoneValue: 0
 --- !u!1 &1330219195
@@ -5681,12 +5914,135 @@ MonoBehaviour:
   - {fileID: 1330219200}
   - {fileID: 849462979}
   - {fileID: 1692891968}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 271058727}
   _myStoneValue: 0
+--- !u!1 &1387515966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387515967}
+  - component: {fileID: 1387515970}
+  - component: {fileID: 1387515969}
+  - component: {fileID: 1387515968}
+  m_Layer: 5
+  m_Name: ButtonRestart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1387515967
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387515966}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2028382855}
+  m_Father: {fileID: 36174332}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -20, y: 70}
+  m_SizeDelta: {x: 180, y: 50}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &1387515968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387515966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1387515969}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1811977799}
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1387515969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387515966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1387515970
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387515966}
+  m_CullTransparentMesh: 0
 --- !u!1 &1418642222
 GameObject:
   m_ObjectHideFlags: 0
@@ -6255,10 +6611,10 @@ MonoBehaviour:
   - {fileID: 1622883991}
   - {fileID: 306580148}
   - {fileID: 306840414}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 131892829}
   _myStoneValue: 0
 --- !u!1 &1635467230
@@ -6637,10 +6993,10 @@ MonoBehaviour:
   - {fileID: 1692891968}
   - {fileID: 472132104}
   - {fileID: 894733580}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1967844385}
   _myStoneValue: 0
 --- !u!1 &1707653839
@@ -6829,10 +7185,10 @@ MonoBehaviour:
   - {fileID: 1799327285}
   - {fileID: 306580148}
   - {fileID: 1804022108}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 962600387}
   _myStoneValue: 0
 --- !u!1 &1804022103
@@ -6956,10 +7312,10 @@ MonoBehaviour:
   - {fileID: 1804022108}
   - {fileID: 952717754}
   - {fileID: 1990367388}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1745383614}
   _myStoneValue: 0
 --- !u!1 &1811977794
@@ -7051,6 +7407,7 @@ RectTransform:
   - {fileID: 811251785}
   - {fileID: 1707653840}
   - {fileID: 563776993}
+  - {fileID: 36174332}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7258,10 +7615,10 @@ MonoBehaviour:
   - {fileID: 1840404926}
   - {fileID: 1069808739}
   - {fileID: 1330219200}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 531164617}
   _myStoneValue: 0
 --- !u!1 &1949914372
@@ -7385,10 +7742,10 @@ MonoBehaviour:
   - {fileID: 1949914377}
   - {fileID: 1323021546}
   - {fileID: 1080659758}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 2015731183}
   _myStoneValue: 0
 --- !u!1 &1961529266
@@ -7692,10 +8049,10 @@ MonoBehaviour:
   - {fileID: 1990367388}
   - {fileID: 733120120}
   - {fileID: 36330418}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 646273242}
   _myStoneValue: 0
 --- !u!1 &1990807229
@@ -7818,6 +8175,81 @@ Transform:
   m_Father: {fileID: 1949914373}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2028382854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028382855}
+  - component: {fileID: 2028382857}
+  - component: {fileID: 2028382856}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2028382855
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028382854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1387515967}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2028382856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028382854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 4c6ee8a2eae59794f90cfdd60caa3228, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Restart
+--- !u!222 &2028382857
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028382854}
+  m_CullTransparentMesh: 0
 --- !u!1 &2050670775
 GameObject:
   m_ObjectHideFlags: 0
@@ -7970,10 +8402,10 @@ MonoBehaviour:
   - {fileID: 2054692473}
   - {fileID: 742690687}
   - {fileID: 472132104}
-  HighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  Free: {r: 0, g: 0, b: 0, a: 0}
-  Occupied: {r: 0, g: 0, b: 0, a: 0}
-  Mill: {r: 0, g: 0, b: 0, a: 0}
+  HighlightColor: {r: 0.7075472, g: 0.6223664, b: 0.19023673, a: 1}
+  Free: {r: 0.16851273, g: 0.4, b: 0.16862746, a: 1}
+  Occupied: {r: 0.16851273, g: 0.16862746, b: 0.16862746, a: 1}
+  Mill: {r: 0.2667764, g: 0.47260147, b: 0.5188679, a: 1}
   StonePosition: {fileID: 1125054250}
   _myStoneValue: 0
 --- !u!1 &2064234536
