@@ -66,6 +66,12 @@ public class Slot : MonoBehaviour {
         _gameManager = GameManager.Instance;        
     }
 
+    public void SetSlotMaterial(Material slotMaterial)
+    {
+        transform.GetComponent<MeshRenderer>().material = slotMaterial;
+        //_myMaterial = slotMaterial;
+    }
+
     public void SetRingAndOrder(BoardRings ring, int ringOrder)
     {
         _ring = ring;
@@ -365,7 +371,7 @@ public class Slot : MonoBehaviour {
     {
         if (!_myStone)
         {
-            Stone myStone = Instantiate(stoneToPlace, positionToInstantiate.position, Quaternion.identity, StonePosition);
+            Stone myStone = Instantiate(stoneToPlace, positionToInstantiate.position + stoneToPlace.ViewOffset, Quaternion.identity, StonePosition);
             _myStone = myStone;
         }
     }

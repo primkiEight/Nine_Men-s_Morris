@@ -18,7 +18,11 @@ public class UIController : MonoBehaviour {
     public Text Player1StonesText;
     public Text Player2StonesText;
 
+    public Image Player1Image;
+    public Image Player2Image;
+
     public Text MessageText;
+    public Image MessageImage;
 
     private void Awake()
     {
@@ -39,6 +43,24 @@ public class UIController : MonoBehaviour {
     {
         Language = newLanguage;
     }
+
+    public void ChangeFont(Font newFont)
+    {
+        Player1Text.font = newFont;
+        Player2Text.font = newFont;
+
+        Player1StonesText.font = newFont;
+        Player2StonesText.font = newFont;
+
+        MessageText.font = newFont;
+    }
+
+    public void ChangeImageSprites(Sprite playerSprite, Sprite messageSprite)
+    {
+        Player1Image.sprite = playerSprite;
+        Player2Image.sprite = playerSprite;
+        MessageImage.sprite = messageSprite;
+}
 
     public void UpdateUIPlayerNames()
     {

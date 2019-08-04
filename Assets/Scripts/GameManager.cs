@@ -13,6 +13,14 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Environment Data")]
+    public Transform EnvironmentParent;
+    public Environment AncientEnvironmentData;
+    public Environment MedievalEnvironmentData;
+    private Environment _environmentData;
+
+    private GameObject _medievalEnvironment;
+    private GameObject _ancientEnvironment;
 
     [Header("Board Prefab")]
     public BoardManager Board;
@@ -24,14 +32,16 @@ public class GameManager : MonoBehaviour
     public UIController UICanvas;
 
     [Header("Player prefabs and data")]
-    public Stone Player1StonePrefab;
-    public Stone Player2StonePrefab;
+    private Stone _player1StonePrefab;
+    private Stone _player2StonePrefab;
     private Stone _playerStone = null;
     private Stone _flyingPlayer;
     public int PlayerStonePieces = 9;
     private int _totalPlayerPieces;
     private int _player1RemainingPieces;
+    private int _player1PlacedPieces;
     private int _player2RemainingPieces;
+    private int _player2PlacedPieces;
 
     [SerializeField]
     private Stone _selectedStone = null;
@@ -68,22 +78,56 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         Debug.Log("GameManager awakes!");
+
+        _medievalEnvironment = Instantiate(MedievalEnvironmentData.EnvironmentGroup, EnvironmentParent.transform.position, Quaternion.identity, EnvironmentParent.transform) as GameObject;
+        _ancientEnvironment = Instantiate(AncientEnvironmentData.EnvironmentGroup, EnvironmentParent.transform.position, Quaternion.identity, EnvironmentParent.transform) as GameObject;
+
+        _ancientEnvironment.SetActive(false);
+
+        _environmentData = AncientEnvironmentData;
     }
 
+    public void ApplyEnvironment()
+    {
+        if (_environmentData == MedievalEnvironmentData)
+        {
+            _environmentData = AncientEnvironmentData;
+            _medievalEnvironment.SetActive(false);
+            _ancientEnvironment.SetActive(true);
+        } else
+        {
+            _environmentData = MedievalEnvironmentData;
+            _medievalEnvironment.SetActive(true);
+            _ancientEnvironment.SetActive(false);            
+        }
+                
+        _player1StonePrefab = _environmentData.StoneP1Prefab;
+        _player2StonePrefab = _environmentData.StoneP2Prefab;
+
+        Board.ApplySlotMaterial(_environmentData.Slots);
+
+        UICanvas.ChangeFont(_environmentData.Font);
+        UICanvas.ChangeImageSprites(_environmentData.PlayerImage, _environmentData.MessageImage);
+    }
+    
     private void Start()
     {
+        Debug.Log("BoardInitializing");
+        Board.InitializeBoard();
+
+        ApplyEnvironment();
+
         _currentPlayer = PlayerTurn.Player1;
-        _playerStone = Player1StonePrefab;
+        _playerStone = _player1StonePrefab;
         _totalPlayerPieces = PlayerStonePieces * 2;
 
         _player1RemainingPieces = PlayerStonePieces;
         _player2RemainingPieces = PlayerStonePieces;
+        _player1PlacedPieces = 0;
+        _player2PlacedPieces = 0;
 
         _currentGameState = GameState.PlayerSetup;
         _previousGameState = _currentGameState;
-
-        Debug.Log("BoardInitializing");
-        Board.InitializeBoard();
 
         UICanvas.UpdateUIPlayerNames();
         UICanvas.UpdateUIMessage(UICanvas.Language.PlayerSetupMessage);
@@ -99,10 +143,13 @@ public class GameManager : MonoBehaviour
         if (_currentGameState == GameState.Flying)
             UICanvas.UpdateUIMessage(UICanvas.Language.PlayerFlyMessage);
 
+        Debug.Log("Can Player Move On The Board?");
+        Board.CanPlayerMoveOnTheBoard();
+
         if (_currentPlayer == PlayerTurn.Player1)
         {
             _currentPlayer = PlayerTurn.Player2;
-            _playerStone = Player2StonePrefab;
+            _playerStone = _player2StonePrefab;
             CameraHolder.CameraViewAlternate();
             UICanvas.UpdateUIAlternateScreens();
             Debug.Log("Player2 Turn");
@@ -110,7 +157,7 @@ public class GameManager : MonoBehaviour
         else if (_currentPlayer == PlayerTurn.Player2)
         {
             _currentPlayer = PlayerTurn.Player1;
-            _playerStone = Player1StonePrefab;
+            _playerStone = _player1StonePrefab;
             CameraHolder.CameraViewAlternate();
             UICanvas.UpdateUIAlternateScreens();
             Debug.Log("Player1 Turn");
@@ -173,18 +220,33 @@ public class GameManager : MonoBehaviour
         {
             if (countdown)
             {
-                //Not an option now.
                 _totalPlayerPieces--;
                 Debug.Log("Player Pieces -1");
+
+                if(_currentPlayer == PlayerTurn.Player1)
+                {
+                    _player1RemainingPieces--;
+                    _player1PlacedPieces++;
+                } else
+                {
+                    _player2RemainingPieces--;
+                    _player2PlacedPieces++;
+                }
+
+                UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
             }
             else
             {
+                //Not an option now.
                 _totalPlayerPieces++;
                 Debug.Log("Player Pieces +1");                
             }
 
             if (_totalPlayerPieces == 0)
             {
+                _player1RemainingPieces = _player1PlacedPieces;
+                _player2RemainingPieces = _player2PlacedPieces;
+                UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
                 ChangeGameState();
                 Debug.Log("GameState is now Move");
             }   
@@ -203,49 +265,53 @@ public class GameManager : MonoBehaviour
 
         UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
 
-        if (_player1RemainingPieces == 2)
+
+        //////OVO direktno ispod provjera JE ZADNJE ŠTO SAM DODAO, PROVJERA DA NISU U PLAYER SETUPU
+        //Ne znam hoće li sada igra moći završiti kada posljednji igrač ostane na 3 ili 2 kamena nakon faze postavljanja
+        if (_previousGameState != GameState.PlayerSetup)
         {
-            Debug.Log("Player 2 Wins!");
-            UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerWin);
-            _currentGameState = GameState.GameOver;
-            GameOver();
-        } else if (_player2RemainingPieces == 2)
-        {
-            Debug.Log("Player 1 Wins!");
-            UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
-            _currentGameState = GameState.GameOver;
-            GameOver();
-        } else if (_player1RemainingPieces == 3 || _player2RemainingPieces == 3)
-        {
-            if (_flyingPlayer == null)
+            if (_player1RemainingPieces == 2)
             {
-                if (_player1RemainingPieces == 3)
-                {
-                    Debug.Log("Player1 can now fly!");
-                    SetFlyingPlayerStone(Player1StonePrefab);
-                }
-                else if (_player2RemainingPieces == 3)
-                {
-                    Debug.Log("Player2 can now fly!");
-                    SetFlyingPlayerStone(Player2StonePrefab);
-                }
-
-                
-
-                //ChangeGameState();
-                _currentGameState = GameState.Flying;
-                AlternatePlayerTurn();
-                
-                
+                Debug.Log("Player 2 Wins!");
+                UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerWin);
+                _currentGameState = GameState.GameOver;
+                GameOver();
             }
-        }
+            else if (_player2RemainingPieces == 2)
+            {
+                Debug.Log("Player 1 Wins!");
+                UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
+                _currentGameState = GameState.GameOver;
+                GameOver();
+            }
+            else if (_player1RemainingPieces == 3 || _player2RemainingPieces == 3)
+            {
+                if (_flyingPlayer == null)
+                {
+                    if (_player1RemainingPieces == 3)
+                    {
+                        Debug.Log("Player1 can now fly!");
+                        SetFlyingPlayerStone(_player1StonePrefab);
+                    }
+                    else if (_player2RemainingPieces == 3)
+                    {
+                        Debug.Log("Player2 can now fly!");
+                        SetFlyingPlayerStone(_player2StonePrefab);
+                    }
 
-        if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
-        {
-            Debug.Log("It's a draw!");
-            UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
-            _currentGameState = GameState.GameOver;
-            GameOver();
+                    //ChangeGameState();
+                    _currentGameState = GameState.Flying;
+                    AlternatePlayerTurn();
+                }
+            }
+            
+            if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
+            {
+                Debug.Log("It's a draw!");
+                UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
+                _currentGameState = GameState.GameOver;
+                GameOver();
+            }
         }
     }
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577bc6a49f735e946a868e1931b86179, type: 3}
+  m_Name: Ancient
+  m_EditorClassIdentifier: 
+  Font: {fileID: 12800000, guid: 22cddcd86b3f9784e874db0755fe3c62, type: 3}
+  Slots: {fileID: 2100000, guid: 0870ae69fc93bd24c8e70ff88fb2d0b4, type: 2}
+  StoneP1Prefab: {fileID: 114631897627602822, guid: abc715217bc2d71419e3940bea779e4c,
+    type: 2}
+  StoneP2Prefab: {fileID: 114520696406690044, guid: 6526b69f1eb666a45bc94c6aa4c5a91b,
+    type: 2}
+  EnvironmentGroup: {fileID: 1322144046920544, guid: 6085a73e5cbc8d042bf66b7800555303,
+    type: 2}
+  PlayerImage: {fileID: 21300000, guid: 2a2fd737aa59c2249bb6a3e6a016f98a, type: 3}
+  MessageImage: {fileID: 21300000, guid: 1fa5b7794b0e92641b5f21d48eb6255d, type: 3}

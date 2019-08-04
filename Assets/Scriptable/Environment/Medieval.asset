@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577bc6a49f735e946a868e1931b86179, type: 3}
+  m_Name: Medieval
+  m_EditorClassIdentifier: 
+  Font: {fileID: 12800000, guid: 4c6ee8a2eae59794f90cfdd60caa3228, type: 3}
+  Slots: {fileID: 2100000, guid: 3ba2153b5ce0fb1489e18b30105f466a, type: 2}
+  StoneP1Prefab: {fileID: 114019640081962220, guid: 96fbe7c4f22910d41b7a6bfcd890b65b,
+    type: 2}
+  StoneP2Prefab: {fileID: 114602684084327598, guid: df826b05ef277394896ad378808b9e51,
+    type: 2}
+  EnvironmentGroup: {fileID: 1751491561499708, guid: 5ace8cf7de08d454c9f42f4f06ca160f,
+    type: 2}
+  PlayerImage: {fileID: 21300000, guid: 44866075a2814bc459a98d2b65323b74, type: 3}
+  MessageImage: {fileID: 21300000, guid: 1a88ed06f789ca047b7bbfc15cb34317, type: 3}

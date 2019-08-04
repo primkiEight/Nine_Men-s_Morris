@@ -89,21 +89,6 @@ public class BoardManager : MonoBehaviour {
         {
             AllSlots.Add(child.gameObject.GetComponent<Slot>());
         }
-
-        //for (int i = 0; i < SlotsRingAList.Count; i++)
-        //{
-        //    AllSlots.Add(SlotsRingAList[i]);
-        //}
-        //
-        //for (int i = 0; i < SlotsRingBList.Count; i++)
-        //{
-        //    AllSlots.Add(SlotsRingBList[i]);
-        //}
-        //
-        //for (int i = 0; i < SlotsRingCList.Count; i++)
-        //{
-        //    AllSlots.Add(SlotsRingCList[i]);
-        //}
     }
 
     public void InitializeBoardMatrix()
@@ -198,5 +183,13 @@ public class BoardManager : MonoBehaviour {
 
         if (player1Move == false || player2Move == false)
             GameManager.Instance.ReportPlayerCannotMove(player1Move, player2Move);
+    }
+
+    public void ApplySlotMaterial(Material slotMaterial)
+    {
+        foreach (Transform child in SlotsParentGameObject)
+        {
+            child.GetComponent<Slot>().SetSlotMaterial(slotMaterial);
+        }
     }
 }

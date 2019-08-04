@@ -12,6 +12,8 @@ public class Stone : MonoBehaviour {
     [Range(-1, 1, order = 0)]
     public int StonePlayerValue;
 
+    public Vector3 ViewOffset;
+
     public float MoveSpeed;
     private bool _isMoving = false;
     private Vector3 _pointBmove;
@@ -75,7 +77,7 @@ public class Stone : MonoBehaviour {
 
     public void FlyTheStone(Transform pointBdestination)
     {
-        _pointBmove = pointBdestination.position;
+        _pointBmove = pointBdestination.position + ViewOffset;
 
         //Animirati, s odgodom (Coo)
 
@@ -86,13 +88,13 @@ public class Stone : MonoBehaviour {
     {
         if (_isMoving)
         {
-            float distance = Vector3.Distance(_myTransform.position, _pointBmove);
+            float distance = Vector3.Distance(_myTransform.position, _pointBmove + ViewOffset);
 
-            _myTransform.position = Vector3.MoveTowards(_myTransform.position, _pointBmove, MoveSpeed * Time.deltaTime);
+            _myTransform.position = Vector3.MoveTowards(_myTransform.position, _pointBmove + ViewOffset, MoveSpeed * Time.deltaTime);
 
             if(distance <= 0.1f)
             {
-                _myTransform.position = _pointBmove;
+                _myTransform.position = _pointBmove + ViewOffset;
                 _isMoving = false;
             }
         }
