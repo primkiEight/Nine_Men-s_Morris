@@ -12,18 +12,23 @@ public class BoardManager : MonoBehaviour {
     public List<Slot> SlotsRingCList = new List<Slot>();
     public List<Slot> AllSlots = new List<Slot>();
 
+    [Header("Parent For All The Slots")]
     public Transform SlotsParentGameObject;
 
-    [SerializeField]
+    //Only for DebugLog visualization ATM
+    //TODO: Undo system :)
     private int[,] CurrentStonePositionsOnTheBoardMatrix = new int[7, 7];
-    [SerializeField]
-    //private Slot[,] SlotsWithPlayerStones = new Slot[7, 7];
+    
+    private int counterMill = 0;
+    private int _counterBoard = 0;
 
     private void Awake()
     {
         Debug.Log("BoardManager awakes!");
     }
 
+    //Sets all the properties of the slots
+    //Hard coded board and slots logic
     public void InitializeBoard()
     {
         Debug.Log("Initializin Board Matrix...");
@@ -74,13 +79,15 @@ public class BoardManager : MonoBehaviour {
             SlotsRingCList[i].SetMyNeighbours(this);
         }
 
+        //One (easy) way of getting to all the slots, for any purpose
         AllSlots = new List<Slot>();
 
         Debug.Log("Updating AllSlotsList...");
         UpdateAllSlotsList();
-
     }
 
+    //Adding the slots from the project hierarchy
+    //For some reason the GameManager was not responding to the objects (need research)
     private void UpdateAllSlotsList()
     {
         AllSlots.Clear();
@@ -91,6 +98,8 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
+    //Only for DebugLog visualization ATM
+    //TODO: Undo system :)
     public void InitializeBoardMatrix()
     {
         for (int i = 0; i < CurrentStonePositionsOnTheBoardMatrix.GetLength(0); i++)
@@ -104,6 +113,9 @@ public class BoardManager : MonoBehaviour {
         PrintBoardState();
     }
 
+    //Only for DebugLog visualization ATM
+    //TODO: Undo system :)
+    //(Slot)
     public void SetBoardState(Vector2Int boardMatrixPosition, Slot slot)
     {
         int x = boardMatrixPosition.x;
@@ -111,16 +123,14 @@ public class BoardManager : MonoBehaviour {
 
         Debug.Log("Setting Board state and rewriting matrix element.");
         CurrentStonePositionsOnTheBoardMatrix[x, y] = slot.ReturnStoneValue();
-        //Debug.Log("ovdje mi je stone value" + slot.ReturnStoneValue());
-        //SlotsWithPlayerStones[x, y] = slot;
-
+        
         UpdateAllSlotsList();
-
-        //CanPlayerMoveOnTheBoard();
 
         PrintBoardState();
     }
 
+    //Only for DebugLog visualization ATM
+    //TODO: Undo system :)
     private void PrintBoardState()
     {
         string boardState = "";
@@ -140,6 +150,8 @@ public class BoardManager : MonoBehaviour {
         Debug.Log(boardState);
     }
 
+    //Checking if a playe can make a move on the board (GameManager, Slot)
+    //If not, the game ends for that player
     public void CanPlayerMoveOnTheBoard()
     {
         bool player1Move = false;
@@ -185,11 +197,78 @@ public class BoardManager : MonoBehaviour {
             GameManager.Instance.ReportPlayerCannotMove(player1Move, player2Move);
     }
 
+    //Adopts slot's visual material when changing the environment (GameManager)
+    //Getting the child objects of the slot parent
     public void ApplySlotMaterial(Material slotMaterial)
     {
         foreach (Transform child in SlotsParentGameObject)
         {
             child.GetComponent<Slot>().SetSlotMaterial(slotMaterial);
+        }
+    }
+
+    //Checking if stones on the board can be destroyed
+    //Clicking a stone (Stone) starts the method
+    public bool CanThisStoneBeDestroyed(Stone askingForAStone)
+    {
+        Debug.Log("Checking if the stones can be destroyed...");
+
+        counterMill = 0;
+        _counterBoard = 0;
+
+        //Chacking all the slots on the board
+        for (int i = 0; i < AllSlots.Count; i++)
+        {
+            //If a stone in this slot is the same as the recieved opponent stone
+            //(the stone that was clicked on)
+            if (AllSlots[i].ReturnStoneValue() == askingForAStone.StonePlayerValue)
+            {
+                //check if it is in a mill
+                if (AllSlots[i].CheckForMill() == (3 * askingForAStone.StonePlayerValue))
+                {
+                    //If it is, mark the stone as undestroyable
+                    AllSlots[i].ReturnStone().SetStoneMillBool(true);
+                    //and increase the counter of the stones
+                    counterMill++;
+                    Debug.Log("CheckForMill: " + AllSlots[i].CheckForMill());
+                    Debug.Log("Counter: " + counterMill);
+                    Debug.Log("Counter Board: " + counterMill);
+                } else
+                {
+                    //This stone is not in a mill, thus it can be destroyed
+                    AllSlots[i].ReturnStone().SetStoneMillBool(false);
+                    //and the counter is not increased
+                }
+            }
+        }
+
+        for (int i = 0; i < AllSlots.Count; i++)
+        {
+            if (AllSlots[i].ReturnStoneValue() == askingForAStone.StonePlayerValue)
+                _counterBoard++;
+        }
+
+        Debug.Log("Counter: " + counterMill);
+        Debug.Log("Counter Board: " + _counterBoard);
+
+        if (counterMill == _counterBoard)
+        {
+            //You can destory any stone since all of them are in a mill
+            //(the same number of stones on the board as of the stones that are in a mill
+            Debug.Log("All stones are in a mill, you can destroy any stone.");
+
+            GameManager.Instance.UICanvas.UpdateUIMessage(GameManager.Instance.UICanvas.Language.PlayerMillMessage03);
+            
+            return true;
+        } else
+        {
+            //You can destroy only those stones that are not in a mill,
+            //others will be marked and check as not destroyable
+            Debug.Log("Not all stones are in a mill, you can destroy only those that are not in a mill.");
+
+            GameManager.Instance.UICanvas.UpdateUIMessage(GameManager.Instance.UICanvas.Language.PlayerMillMessage02);
+
+            return false;
         }
     }
 }

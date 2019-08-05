@@ -19,5 +19,6 @@ MonoBehaviour:
     type: 2}
   EnvironmentGroup: {fileID: 1751491561499708, guid: 5ace8cf7de08d454c9f42f4f06ca160f,
     type: 2}
+  Profile: {fileID: 11400000, guid: df6b954bc6615554990e1856d4f5c08b, type: 2}
   PlayerImage: {fileID: 21300000, guid: 44866075a2814bc459a98d2b65323b74, type: 3}
   MessageImage: {fileID: 21300000, guid: 1a88ed06f789ca047b7bbfc15cb34317, type: 3}

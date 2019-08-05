@@ -21,4 +21,7 @@ MonoBehaviour:
   PlayerMoveMessage: Move one of your stones to a free space. Connect 3 for a mill.
   PlayerFlyMessage: Player with 3 stones can 'fly' them to any free space.
   PlayerMillMessage01: You connected a mill. Remove one of opponents stones.
-  PlayerMillMessage02: You cannot remove a stone from the mill.
+  PlayerMillMessage02: You cannot remove a stone from the mill when there are stones
+    out of the mill.
+  PlayerMillMessage03: You may remove a stone from a mill.
+  PlayerMillMessage04: You may not remove your stone.

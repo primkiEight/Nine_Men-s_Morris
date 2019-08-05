@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour {
 
+    [Header("Main Camera And Camera Focus")]
     public Camera MainCamera;
     public Transform BoardTransformToLookAt;
 
     private Transform _mainCameraTransform;
+    private Transform _transformToMoveTo;
 
+    [Header("Camera moving points and behaviour")]
     public Transform LeftCameraPosition;
     public Transform MidleCameraPosition;
     public Transform RightCameraPosition;
-    private Transform _transformToMoveTo;
+    public float RotateSpeed;
+    public Vector3 RotateAxis;
+    public Vector3 RotateEulers;
+
+    private PostProcessingProfile _postProcessingProfile;
+    private bool _gameOver = false;
 
     private void Awake()
     {
@@ -20,6 +29,7 @@ public class CameraController : MonoBehaviour {
         CameraViewReset();
     }
 
+    //Alternates camera view to match player view (GameManager)
     public void CameraViewAlternate()
     {
         if(_transformToMoveTo == MidleCameraPosition)
@@ -36,7 +46,6 @@ public class CameraController : MonoBehaviour {
 
     public void CameraViewReset()
     {
-        //_transformToMoveTo = MidleCameraPosition;
         _transformToMoveTo = LeftCameraPosition;
         if (BoardTransformToLookAt)
         {
@@ -47,21 +56,41 @@ public class CameraController : MonoBehaviour {
         }
     }
 
+    //Moves camera to match player views
     public void Update()
     {
-        float distance = Vector3.Distance(_mainCameraTransform.localPosition, _transformToMoveTo.localPosition);
-
-        if (distance >= 0.1f)
+        if (!_gameOver)
         {
-            _mainCameraTransform.localPosition = Vector3.MoveTowards(_mainCameraTransform.localPosition, _transformToMoveTo.localPosition, 40 * Time.deltaTime);
-            _mainCameraTransform.LookAt(BoardTransformToLookAt);
-            //_mainCameraTransform.localRotation = Quaternion.RotateTowards(_mainCameraTransform.localRotation, _transformToMoveTo.localRotation, 40 * Time.deltaTime);
+            float distance = Vector3.Distance(_mainCameraTransform.localPosition, _transformToMoveTo.localPosition);
+
+            if (distance >= 0.1f)
+            {
+                _mainCameraTransform.localPosition = Vector3.MoveTowards(_mainCameraTransform.localPosition, _transformToMoveTo.localPosition, 40 * Time.deltaTime);
+                _mainCameraTransform.LookAt(BoardTransformToLookAt);
+            }
+            else
+            {
+                _mainCameraTransform.localPosition = _transformToMoveTo.localPosition;
+                _mainCameraTransform.LookAt(BoardTransformToLookAt);
+            }
         }
         else
         {
-            _mainCameraTransform.localPosition = _transformToMoveTo.localPosition;
-            //_mainCameraTransform.localRotation = _transformToMoveTo.localRotation;
-            _mainCameraTransform.LookAt(BoardTransformToLookAt);
+            _mainCameraTransform.RotateAround(BoardTransformToLookAt.position, RotateAxis, RotateSpeed * Time.deltaTime);
         }
+    }
+
+    //Activates Camera rotation when the game is in the GameOver state (GameManager)
+    public void ActivateGameOverCamera()
+    {
+        _gameOver = true;
+    }
+
+    //Updates PostProcessing Profiles when changing environments (Environment SO, GameManager)
+    public void UpdatePostProcessingProfile(PostProcessingProfile profile)
+    {
+        _postProcessingProfile = profile;
+        if(_mainCameraTransform.GetComponent<PostProcessingBehaviour>())
+            _mainCameraTransform.GetComponent<PostProcessingBehaviour>().profile = _postProcessingProfile;
     }
 }

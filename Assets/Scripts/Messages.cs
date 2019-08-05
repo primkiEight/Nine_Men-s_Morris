@@ -27,4 +27,6 @@ public class Messages : ScriptableObject {
     [Header("Mill Messages")]
     public string PlayerMillMessage01;
     public string PlayerMillMessage02;
+    public string PlayerMillMessage03;
+    public string PlayerMillMessage04;
 }

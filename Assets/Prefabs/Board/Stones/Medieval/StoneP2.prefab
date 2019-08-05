@@ -97,8 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StonePlayerValue: -1
-  ViewOffset: {x: 0, y: -0.3, z: 0}
+  ViewPositionOffset: {x: 0, y: -0.3, z: 0}
+  ViewRotationOffset: {x: 0, y: 0, z: 0, w: 0}
   MoveSpeed: 2
+  ParticleSystemPrefab: {fileID: 198432029409575144, guid: 965138c4d9ad9984cabef0e9505e42a9,
+    type: 2}
 --- !u!135 &135211866718898730
 SphereCollider:
   m_ObjectHideFlags: 1

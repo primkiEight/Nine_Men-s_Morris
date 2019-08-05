@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Generic Rotate Around Target Script - used only on an evnironment windmill in this project
 public class RotateAroundTarget : MonoBehaviour
 {
     public Transform Center;
@@ -9,13 +10,6 @@ public class RotateAroundTarget : MonoBehaviour
     public Vector3 Axis;
     public Vector3 Eulers;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.RotateAround(Center.position, Axis, Speed * Time.deltaTime);

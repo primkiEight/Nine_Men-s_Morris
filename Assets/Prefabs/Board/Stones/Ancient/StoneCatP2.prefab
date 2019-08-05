@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4323997175702530}
   - component: {fileID: 33077213761421100}
   - component: {fileID: 23948676686537654}
-  - component: {fileID: 114520696406690044}
   - component: {fileID: 64474299197043706}
+  - component: {fileID: 114520696406690044}
   m_Layer: 0
   m_Name: StoneCatP2
   m_TagString: Untagged
@@ -111,5 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StonePlayerValue: -1
-  ViewOffset: {x: 0, y: 0.15, z: -0.15}
+  ViewPositionOffset: {x: 0, y: 0.15, z: 0.15}
+  ViewRotationOffset: {x: 0, y: 1, z: 0, w: 0}
   MoveSpeed: 2
+  ParticleSystemPrefab: {fileID: 198432029409575144, guid: 965138c4d9ad9984cabef0e9505e42a9,
+    type: 2}

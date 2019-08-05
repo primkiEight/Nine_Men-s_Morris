@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour {
 
-    private bool _clickBool = false;
-
     private GameManager _gameManager;
 
     private Transform _myTransform;
     private Material _myMaterial;
 
-    public Stone TestStonePrefab;
+    private bool _clickBool = false;
     private Stone _myStone;
 
-    [Header("Board Ring, order in the Ring and position in the Board matrix")]
-    [SerializeField]
+    //[Header("Board Ring, order in the Ring and position in the Board matrix")]
+    //[SerializeField]
     private BoardManager _myBoard;
-    [SerializeField]
+    //[SerializeField]
     private BoardRings _ring;
-    [SerializeField]
+    //[SerializeField]
     private int _ringOrder;
-    [SerializeField]
+    //[SerializeField]
     private Vector2Int _myMatrixPosition;
-    public List<Slot> _myNeighboursList = new List<Slot>();
-    public List<Slot> _millHorizontalList = new List<Slot>();
-    public List<Slot> _millVerticalList = new List<Slot>();
+    private List<Slot> _myNeighboursList = new List<Slot>();
+    private List<Slot> _millHorizontalList = new List<Slot>();
+    private List<Slot> _millVerticalList = new List<Slot>();
 
-    private Color _initialColor;
+    
     [Header("Visuals")]
     public Color HighlightColor;
-    public Color Free;
-    public Color Occupied;
-    public Color Mill;
+    //Not implemented ATM
+    //public Color Free;
+    //public Color Occupied;
+    //public Color Mill;
+    private Color _initialColor;
 
-    [Header("Positions")]
+    [Header("Self-Stone Position")]
     public Transform StonePosition;
-    [SerializeField]
+    //[SerializeField]
     private int _myStoneValue;
     
     private void Awake()
@@ -66,29 +66,34 @@ public class Slot : MonoBehaviour {
         _gameManager = GameManager.Instance;        
     }
 
+    //Adopts slot's visual material when chaning environment (BoardManager)
     public void SetSlotMaterial(Material slotMaterial)
     {
         transform.GetComponent<MeshRenderer>().material = slotMaterial;
-        //_myMaterial = slotMaterial;
     }
 
+    //Sets Board Ring and ring Order when initializing the Board (BoardManager)
     public void SetRingAndOrder(BoardRings ring, int ringOrder)
     {
         _ring = ring;
         _ringOrder = ringOrder;        
     }
 
-    public Vector2Int GetSlotMatrixPosition()
-    {
-        return _myMatrixPosition;
-    }
+    //Not used ATM
+    //public Vector2Int GetSlotMatrixPosition()
+    //{
+    //    return _myMatrixPosition;
+    //}
 
+    //Sets Matrix Position when initializing the Board (BoardManager)
     public void SetMyMatrixPosition(BoardManager board)
     {
         _myMatrixPosition.x = ((int)transform.localPosition.x + (int)board.transform.position.x) / 2;
         _myMatrixPosition.y = ((int)transform.localPosition.z + (int)board.transform.position.z) / 2;
     }
 
+    //Sets Neighbour slots when initializing the Board (BoardManager)
+    //Will be used to check if the stone can move to the next slot
     public void SetMyNeighbours(BoardManager board)
     {
         _myNeighboursList.Clear();
@@ -209,6 +214,7 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    //Defines what happens when a player clicks on the slot, depending on the GameState
     private void OnMouseDown()
     {
         _clickBool = !_clickBool;
@@ -222,16 +228,16 @@ public class Slot : MonoBehaviour {
                 }                
                 break;
             case GameState.Move:
-                if (CheckForMove())
+                if (CheckForMove() && _myStone == null)
                 {
                     Move();
                 }
                 break;
             case GameState.Flying:
-                if(CheckForFly() && _gameManager.CanPlayerFly())
+                if(CheckForFly() && _gameManager.CanPlayerFly() && _myStone == null)
                 {
                     Fly();
-                } else if (CheckForMove())
+                } else if (CheckForMove() && _myStone == null)
                 {
                     Move();
                 }
@@ -245,6 +251,7 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    //Defines stone's placing behaviour during the Player Setup gamestate
     private void Place()
     {
         Debug.Log("Setting a stone.");
@@ -261,17 +268,20 @@ public class Slot : MonoBehaviour {
         else
         {
             Debug.Log("Player made a move without a mill.");
+
+            Debug.Log("Player Setup CountDown");
+            _gameManager.PlayerSetupCountdown(true);
+            
             Debug.Log("Alternate Player Turn");
             _gameManager.AlternatePlayerTurn();
 
             Debug.Log("A1");
         }
-        Debug.Log("Player Setup CountDown");
-        _gameManager.PlayerSetupCountdown(true);
         Debug.Log("Can Player Move On The Board?");
         _myBoard.CanPlayerMoveOnTheBoard();
     }
 
+    //Defines stone's moving behaviour during the Move (and Flying) gamestate
     private void Move()
     {
         Debug.Log("Destroy the selected Stone on the old position");
@@ -304,6 +314,7 @@ public class Slot : MonoBehaviour {
         _myBoard.CanPlayerMoveOnTheBoard();
     }
 
+    //Defines stone's flying behaviour during the Move/Flying gamestate
     private void Fly()
     {
         Debug.Log("Destroy the selected Stone on the old position");
@@ -331,11 +342,9 @@ public class Slot : MonoBehaviour {
             Debug.Log("Alternate Player Turn");
             _gameManager.AlternatePlayerTurn();
         }
-
-        //Debug.Log("Can Player Move On The Board?");
-        //_myBoard.CanPlayerMoveOnTheBoard();
     }
 
+    //Defines the procedure for placing a Stone on a Slot
     private void SetTheStone(Transform positionToInstantiate)
     {
         _myMaterial.color = HighlightColor;
@@ -343,20 +352,19 @@ public class Slot : MonoBehaviour {
         StoneInstantiate(activePlayerStone, positionToInstantiate);
         _myStoneValue = activePlayerStone.StonePlayerValue;
         Debug.Log("Setting a stone value of " + _myStoneValue);
-        //_gameManager.Board.SetBoardState(_myMatrixPosition, this);
         _myBoard.SetBoardState(_myMatrixPosition, this);
     }
 
+    //Defines the procedure for removing a Stone from a Slot thus cleaning the Slot
     public void RemoveTheStone()
     {
         _myMaterial.color = _initialColor;
         StoneDestroy();
         _myStoneValue = 0;
-        //_gameManager.Board.SetBoardState(_myMatrixPosition, this);        
         _myBoard.SetBoardState(_myMatrixPosition, this);
-
     }
 
+    //Defines the procedure for removing a Stone from a Slot with a mill (destroying and permanently removing from the board)
     public void RemoveTheStoneWithMill()
     {
         int value = _myStoneValue;
@@ -367,15 +375,20 @@ public class Slot : MonoBehaviour {
         _clickBool = false;
     }
 
+    //Instantiating the stone when placing during the PlayerSetup game state, or instantiating when moving or flying to another slot
     public void StoneInstantiate(Stone stoneToPlace, Transform positionToInstantiate)
     {
+        stoneToPlace = _gameManager.GetPlayerStonePrefab(stoneToPlace);
+
         if (!_myStone)
         {
-            Stone myStone = Instantiate(stoneToPlace, positionToInstantiate.position + stoneToPlace.ViewOffset, Quaternion.identity, StonePosition);
+            Quaternion rotation = stoneToPlace.ViewRotationOffset;
+            Stone myStone = Instantiate(stoneToPlace, positionToInstantiate.position + stoneToPlace.ViewPositionOffset, rotation, StonePosition);
             _myStone = myStone;
         }
     }
 
+    //Permanently destroying the stone gameobject
     public void StoneDestroy()
     {
         if (_myStone)
@@ -385,6 +398,8 @@ public class Slot : MonoBehaviour {
         }
     }
 
+    //Checking for free neighbours in my neighbourhood and returning 'true' if the stone can be moved to any of my neighbouring slots, and false if there are none
+    //Debug logs are from a stone's perspective
     public bool CheckFreeNeighbours()
     {
         bool canIMove = false;
@@ -409,11 +424,20 @@ public class Slot : MonoBehaviour {
         return canIMove;
     }
 
+    //Used for checking which player occupies this slot (GameManager, BoardManager, Slot)
     public int ReturnStoneValue()
     {
         return _myStoneValue;
     }
+    
+    //Used for checking which stone occupies this slot, and for setting the mill bool to disable removing the stones (GameManager, BoardManager, Slot)
+    public Stone ReturnStone()
+    {
+        return _myStone;
+    }
 
+    //Checks if the stone on this slot makes a mill with other stones on the neighbouring horizontal and vertical slots (BoardManager)
+    //Returns a value of 3/-3 if a player1/player2 has a mill, or 0 if it does not
     public int CheckForMill()
     {
         int millValue = 0;
@@ -441,6 +465,8 @@ public class Slot : MonoBehaviour {
         return millValue;
     }
 
+    //Checks if the selected stone (GameManager) can move to this slot by checking if that stone is on one of this slot's neighbouring slots
+    //during the Move (or Flying) game states
     public bool CheckForMove()
     {
         Slot selectedStoneSlot = _gameManager.GetSelectedStoneSlot();
@@ -465,6 +491,8 @@ public class Slot : MonoBehaviour {
         return canStoneMoveHere;
     }
 
+    //Checks if the selected stone (GameManager) can move to this slot by checking if this stone is occupied (with a debug message)
+    //(together with checking if that player can fly...)
     public bool CheckForFly()
     {
         if(_myStone)

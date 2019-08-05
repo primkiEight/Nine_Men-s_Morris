@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* PlayerSetup: Players alternately place their stones, mills are possible
+ * (3 stones in a row allow a player to destroy other player's stone which is not in a mill formation (unless no other stones are available to destroy)
+ * Move: Players alternately move stones on the board (on the next free slot) trying to form a mill - 3 stones in a row
+ * Flying: A player that is left on only 3 stones on the board can 'fly' to any other free space on the board
+ * GameOver: The game ends if one of the players is left with two stones on the board, if a player can not move to any adjacent space,
+ * or if both players have 3 stones on the board (a draw)
+ * Mill: game state when one player has placed 3 stones in a row, and now can take/remove an opponent's stone
+ */
 public enum GameState
 {
     PlayerSetup,
@@ -36,6 +44,8 @@ public class GameManager : MonoBehaviour
     private Stone _player2StonePrefab;
     private Stone _playerStone = null;
     private Stone _flyingPlayer;
+
+    [Header("Number Of Player Pieces (Stones) = 9")]
     public int PlayerStonePieces = 9;
     private int _totalPlayerPieces;
     private int _player1RemainingPieces;
@@ -43,12 +53,12 @@ public class GameManager : MonoBehaviour
     private int _player2RemainingPieces;
     private int _player2PlacedPieces;
 
-    [SerializeField]
+    //[SerializeField]
     private Stone _selectedStone = null;
-    [SerializeField]
+    //[SerializeField]
     private Slot _selectedStoneSlot = null;
 
-    [SerializeField]
+    //[SerializeField]
     private GameState _currentGameState = GameState.PlayerSetup;
     //[SerializeField]
     private GameState _previousGameState;
@@ -63,7 +73,7 @@ public class GameManager : MonoBehaviour
         Player1,
         Player2
     }
-    [SerializeField]
+    //[SerializeField]
     private PlayerTurn _currentPlayer;
 
     public static GameManager Instance;
@@ -87,6 +97,7 @@ public class GameManager : MonoBehaviour
         _environmentData = AncientEnvironmentData;
     }
 
+    //Applies all the environment changes (the UI and the scenery)
     public void ApplyEnvironment()
     {
         if (_environmentData == MedievalEnvironmentData)
@@ -105,6 +116,8 @@ public class GameManager : MonoBehaviour
         _player2StonePrefab = _environmentData.StoneP2Prefab;
 
         Board.ApplySlotMaterial(_environmentData.Slots);
+
+        CameraHolder.UpdatePostProcessingProfile(_environmentData.Profile);
 
         UICanvas.ChangeFont(_environmentData.Font);
         UICanvas.ChangeImageSprites(_environmentData.PlayerImage, _environmentData.MessageImage);
@@ -134,6 +147,7 @@ public class GameManager : MonoBehaviour
         UICanvas.UpdateUIAwake(true);
     }
 
+    //Alternates the player turns, updating the UI, moving the camera and checking if the players can move on the board
     public void AlternatePlayerTurn()
     {
         if (_currentGameState == GameState.PlayerSetup)
@@ -164,21 +178,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Allows a Stone and a Slot to access the active player stone's reference
     public Stone GetActivePlayerStone()
     {
         return _playerStone;
     }
 
+    //Defines which player can fly, so that others know when checking the move
     public void SetFlyingPlayerStone(Stone flyingPlayer)
     {
         _flyingPlayer = flyingPlayer;
     }
 
-    public Stone GetFlyingPlayerStone()
-    {
-        return _flyingPlayer;
-    }
-
+    //Checking (when flying) if the active player can fly to other slots on the board (Slot)
     public bool CanPlayerFly()
     {
         if(GetActivePlayerStone() == _flyingPlayer)
@@ -186,16 +198,19 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    //Allows a Stone and a a Slot to access the selected stone's reference
     public Stone GetSelectedStone()
     {
         return _selectedStone;
     }
 
+    //Allows a Slot to access the selected stone's slot reference
     public Slot GetSelectedStoneSlot()
     {
         return _selectedStoneSlot;
     }
 
+    //Sets which player's stone is the selected stone (when moving and flying) (Slot, Stone)
     public void SetSelectedStone(Stone selectedStone)
     {
         if(selectedStone == null)
@@ -214,6 +229,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Allowing the Slot to use the right stone's prefab for instantiate
+    public Stone GetPlayerStonePrefab(Stone lookingForThisStonePrefab)
+    {
+        if (lookingForThisStonePrefab.StonePlayerValue == 1)
+        {
+            return _player1StonePrefab;
+        }
+        else if (lookingForThisStonePrefab.StonePlayerValue == -1)
+        {
+            return _player2StonePrefab;
+        }
+
+        return null;
+    }
+
+    //The countdown procedure for PlayerSetup game state (keeping track of the right numbers, and updating UI)
     public void PlayerSetupCountdown(bool countdown)
     {
         if (_currentGameState == GameState.PlayerSetup)
@@ -244,68 +275,43 @@ public class GameManager : MonoBehaviour
 
             if (_totalPlayerPieces == 0)
             {
-                _player1RemainingPieces = _player1PlacedPieces;
-                _player2RemainingPieces = _player2PlacedPieces;
-                UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
                 ChangeGameState();
                 Debug.Log("GameState is now Move");
+
+                _player1RemainingPieces = 0;
+                _player2RemainingPieces = 0;
+
+                for (int i = 0; i < Board.AllSlots.Count; i++)
+                {
+                    if (Board.AllSlots[i].ReturnStoneValue() == 1)
+                        _player1RemainingPieces++;
+                    else if (Board.AllSlots[i].ReturnStoneValue() == -1)
+                        _player2RemainingPieces++;
+                }
+                UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
             }   
         }
     }
 
+    //The countdown procedure for Mill game state (keeping track of the right numbers, and updating UI)
+    //Ending the game under the righ conditions
+    //Defining when a player can fly
     public void DecreasePlayerPieces(int value)
     {
-        if (value == 1)
+        if (_previousGameState == GameState.PlayerSetup)
         {
-            _player1RemainingPieces--;            
-        } else if (value == -1)
-        {
-            _player2RemainingPieces--;
-        }
-
-        UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
-
-
-        //////OVO direktno ispod provjera JE ZADNJE ŠTO SAM DODAO, PROVJERA DA NISU U PLAYER SETUPU
-        //Ne znam hoće li sada igra moći završiti kada posljednji igrač ostane na 3 ili 2 kamena nakon faze postavljanja
-        if (_previousGameState != GameState.PlayerSetup)
-        {
-            if (_player1RemainingPieces == 2)
+            if (value == 1)
             {
-                Debug.Log("Player 2 Wins!");
-                UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerWin);
-                _currentGameState = GameState.GameOver;
-                GameOver();
+                _player1PlacedPieces--;
             }
-            else if (_player2RemainingPieces == 2)
+            else if (value == -1)
             {
-                Debug.Log("Player 1 Wins!");
-                UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
-                _currentGameState = GameState.GameOver;
-                GameOver();
+                _player2PlacedPieces--;
             }
-            else if (_player1RemainingPieces == 3 || _player2RemainingPieces == 3)
-            {
-                if (_flyingPlayer == null)
-                {
-                    if (_player1RemainingPieces == 3)
-                    {
-                        Debug.Log("Player1 can now fly!");
-                        SetFlyingPlayerStone(_player1StonePrefab);
-                    }
-                    else if (_player2RemainingPieces == 3)
-                    {
-                        Debug.Log("Player2 can now fly!");
-                        SetFlyingPlayerStone(_player2StonePrefab);
-                    }
 
-                    //ChangeGameState();
-                    _currentGameState = GameState.Flying;
-                    AlternatePlayerTurn();
-                }
-            }
-            
-            if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
+            UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
+
+            if ((_player1RemainingPieces == 0 && _player2RemainingPieces == 0) && (_player1PlacedPieces == 3 && _player2PlacedPieces == 3))
             {
                 Debug.Log("It's a draw!");
                 UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
@@ -313,8 +319,68 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
+        else if (_previousGameState != GameState.PlayerSetup)
+        {
+            if (_currentGameState == GameState.Mill)
+                {
+                if (value == 1)
+                {
+                    _player1RemainingPieces--;                    
+                }
+                else if (value == -1)
+                {
+                    _player2RemainingPieces--;
+                }
+
+                UICanvas.UpdateUIStones(_player1RemainingPieces, _player2RemainingPieces);
+
+                if (_player1RemainingPieces == 2)
+                {
+                    Debug.Log("Player 2 Wins!");
+                    UICanvas.UpdateUIMessage(UICanvas.Language.Player2 + UICanvas.Language.PlayerWin);
+                    _currentGameState = GameState.GameOver;
+                    GameOver();
+                }
+                else if (_player2RemainingPieces == 2)
+                {
+                    Debug.Log("Player 1 Wins!");
+                    UICanvas.UpdateUIMessage(UICanvas.Language.Player1 + UICanvas.Language.PlayerWin);
+                    _currentGameState = GameState.GameOver;
+                    GameOver();
+                }
+                else if (_player1RemainingPieces == 3 || _player2RemainingPieces == 3)
+                {
+                    if (_flyingPlayer == null)
+                    {
+                        if (_player1RemainingPieces == 3)
+                        {
+                            Debug.Log("Player1 can now fly!");
+                            SetFlyingPlayerStone(_player1StonePrefab);
+                        }
+                        else if (_player2RemainingPieces == 3)
+                        {
+                            Debug.Log("Player2 can now fly!");
+                            SetFlyingPlayerStone(_player2StonePrefab);
+                        }
+
+                        _currentGameState = GameState.Flying;
+                        AlternatePlayerTurn();
+                    }
+                }
+
+                if (_player1RemainingPieces == 3 && _player2RemainingPieces == 3)
+                {
+                    Debug.Log("It's a draw!");
+                    UICanvas.UpdateUIMessage(UICanvas.Language.PlayerDraw);
+                    _currentGameState = GameState.GameOver;
+                    GameOver();
+                }
+            }
+        }
     }
 
+    //Changes the Game State
+    //Initially planned to be used as an incrementing method, but this is true only for the first transition from PlayerSetup
     public void ChangeGameState()
     {
         _currentGameState++;
@@ -331,11 +397,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Defines what happens when the game ends
+    //For now, only the UI update and camera rotation
     private void GameOver()
     {
-
+        UICanvas.UpdateUIGameOverScreen();
+        CameraHolder.ActivateGameOverCamera();
     }
 
+    //Trackes if a player cannot move anymore on the board, updates the UI and ends the game (BoardManager)
     public void ReportPlayerCannotMove(bool player1, bool player2)
     {
         if (_currentGameState != GameState.PlayerSetup)
@@ -359,6 +429,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Activates the Mill game state and the UI together with the SetMillState method bellow (Slot)
+    //The mill game state ends and returns to the previous state when an opponent's stone is removed
     public void ReportPlayerMove(int millCondition)
     {
         if(millCondition == 3)
