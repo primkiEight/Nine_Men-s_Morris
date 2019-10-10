@@ -117,7 +117,9 @@ public class GameManager : MonoBehaviour
 
         Board.ApplySlotMaterial(_environmentData.Slots);
 
+#if UNITY_STANDALONE || UNIT_WEBGL || UNITY_EDITOR
         CameraHolder.UpdatePostProcessingProfile(_environmentData.Profile);
+#endif
 
         UICanvas.ChangeFont(_environmentData.Font);
         UICanvas.ChangeImageSprites(_environmentData.PlayerImage, _environmentData.MessageImage);
@@ -408,7 +410,7 @@ public class GameManager : MonoBehaviour
     //Trackes if a player cannot move anymore on the board, updates the UI and ends the game (BoardManager)
     public void ReportPlayerCannotMove(bool player1, bool player2)
     {
-        if (_currentGameState != GameState.PlayerSetup)
+        if (_currentGameState != GameState.PlayerSetup && _flyingPlayer == null)
         {
             if (!player1 && player2)
             {
